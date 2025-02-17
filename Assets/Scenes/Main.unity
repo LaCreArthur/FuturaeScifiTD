@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 163548751}
   - component: {fileID: 163548753}
   - component: {fileID: 163548754}
+  - component: {fileID: 163548755}
   m_Layer: 0
   m_Name: Grid Manager
   m_TagString: Untagged
@@ -203,6 +204,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2550f51725224637a6f38ec6641d931f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &163548755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163548750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f2ab5f178f948038e88b55ba8393ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placementOffset: {x: 0, y: 0.5, z: 0}
 --- !u!1 &283495087
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +348,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710665, y: -0, z: -0, w: 0.70710695}
-  m_LocalPosition: {x: 10, y: 13.5, z: 5}
+  m_LocalPosition: {x: 7.5, y: 8.5, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1035,6 +1049,26 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8698141224265510035, guid: 9753ebbd742dec4419646783f76889bd, type: 3}
   m_PrefabInstance: {fileID: 8904908247317064355}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1871659795 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1787970439702464710, guid: 9753ebbd742dec4419646783f76889bd, type: 3}
+  m_PrefabInstance: {fileID: 8904908247317064355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1871659801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871659795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b848d159e22449f3b448f6c39ef13b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 8623472391106931937, guid: 1e712dcdb56f8db499b40c767ba57366, type: 3}
+  defaultColor: {r: 0.85098046, g: 0.74509805, b: 0.5921569, a: 1}
+  selectedColor: {r: 0.7627288, g: 0.90943396, b: 0.4650124, a: 1}
 --- !u!114 &2044090079 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3377883498235331852, guid: b442f5da36374c74493d855d289d66f6, type: 3}
@@ -5856,7 +5890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1787970439702464710, guid: 9753ebbd742dec4419646783f76889bd, type: 3}
       propertyPath: m_Name
-      value: Button Turret
+      value: Button Tower
       objectReference: {fileID: 0}
     - target: {fileID: 3957435732726092155, guid: 9753ebbd742dec4419646783f76889bd, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5957,7 +5991,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1787970439702464710, guid: 9753ebbd742dec4419646783f76889bd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1871659801}
   m_SourcePrefab: {fileID: 100100000, guid: 9753ebbd742dec4419646783f76889bd, type: 3}
 --- !u!1 &8907931741382053163
 GameObject:

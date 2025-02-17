@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -43,7 +42,7 @@ public class PathGenerator : MonoBehaviour
     {
         _cellSize = Grid.CellSize;
         _gridSize = Grid.GridSize;
-        StartCoroutine(GeneratePathRoutine());
+        GeneratePathRoutine();
     }
 
     [ContextMenu("Reset Path")]
@@ -54,10 +53,10 @@ public class PathGenerator : MonoBehaviour
             Grid.Cells[p].SetType(CellType.Ground);
         }
         Path.Clear();
-        StartCoroutine(GeneratePathRoutine());
+        GeneratePathRoutine();
     }
 
-    IEnumerator GeneratePathRoutine()
+    void GeneratePathRoutine()
     {
         int startY = Random.Range(1, _gridSize.y - 1);
         var currentPos = new Vector2Int(0, startY);
@@ -75,16 +74,12 @@ public class PathGenerator : MonoBehaviour
             {
                 if (!BacktrackPath(ref currentPos, excludedPositions))
                     break;
-
-                yield return new WaitForSeconds(visualizationDelay);
                 continue;
             }
 
             currentPos += GetWeightedRandomDirection(validDirections);
             Path.Add(currentPos);
             Grid.Cells[currentPos].SetType(CellType.Road);
-
-            yield return new WaitForSeconds(visualizationDelay);
         }
         ConvertPathToWorldPositions();
         EndCellFound?.Invoke(Grid.GetWorldPos(Vector3.zero, _cellSize, currentPos.x, currentPos.y, true));
