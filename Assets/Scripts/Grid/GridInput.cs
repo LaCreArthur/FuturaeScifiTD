@@ -6,13 +6,12 @@ public class GridInput : MonoBehaviour
 {
     Camera _mainCamera;
     Cell _cellOver;
+    GameObject _activeTower;
 
     public static event Action<Cell> CellClicked;
+    public static event Action<Cell> CellOver;
 
-    void Awake()
-    {
-        _mainCamera = Camera.main;
-    }
+    void Awake() => _mainCamera = Camera.main;
 
     void Update()
     {
@@ -22,7 +21,7 @@ public class GridInput : MonoBehaviour
         // Check if mouse is over an existing cell
         if (Grid.Cells.TryGetValue(gridPosition, out Cell cell))
         {
-            UpdateCellOver(cell);
+            if (_cellOver != cell) UpdateCellOver(cell);
             if (Input.GetMouseButtonDown(0))
             {
                 // Check if pointer is over UI element
@@ -40,7 +39,6 @@ public class GridInput : MonoBehaviour
         }
 
     }
-    
 
     void UpdateCellOver(Cell cell)
     {
@@ -52,6 +50,7 @@ public class GridInput : MonoBehaviour
             }
             cell.SetValidMaterial();
             _cellOver = cell;
+            CellOver?.Invoke(cell);
         }
     }
 
@@ -62,13 +61,13 @@ public class GridInput : MonoBehaviour
     Vector3 GetMouseWorldPosition(Camera cam)
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        
+        var groundPlane = new Plane(Vector3.up, Vector3.zero);
+
         if (groundPlane.Raycast(ray, out float distance))
         {
             return ray.GetPoint(distance);
         }
-        
+
         return Vector3.zero;
     }
 }

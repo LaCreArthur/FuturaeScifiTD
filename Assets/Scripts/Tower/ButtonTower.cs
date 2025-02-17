@@ -17,11 +17,21 @@ public class ButtonTower : MonoBehaviour
     {
         _button = GetComponent<Button>();
         _button.onClick.AddListener(OnClick);
+        BuildingManager.Built += OnBuilt;
     }
+
+    void OnDestroy() => BuildingManager.Built -= OnBuilt;
+
+    void OnBuilt() => SetSelected(false);
+
     void OnClick()
     {
-        _selected = !_selected;
+        SetSelected(!_selected);
         TowerClicked?.Invoke(_selected ? towerPrefab : null);
+    }
+    void SetSelected(bool value)
+    {
+        _selected = value;
         _button.image.color = _selected ? selectedColor : defaultColor;
     }
 }

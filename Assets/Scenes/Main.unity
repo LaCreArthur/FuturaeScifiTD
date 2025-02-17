@@ -217,6 +217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placementOffset: {x: 0, y: 0.5, z: 0}
+  defaultMat: {fileID: 2100000, guid: 4cee7a5983b187943adc589b9cb1f084, type: 2}
+  previewMat: {fileID: 2100000, guid: 677e3b2bb96e3f34785dab7f36af0c5b, type: 2}
 --- !u!1 &283495087
 GameObject:
   m_ObjectHideFlags: 0
