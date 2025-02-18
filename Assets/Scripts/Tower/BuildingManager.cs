@@ -12,6 +12,7 @@ public class BuildingManager : MonoBehaviour
     GameObject _previewTowerInstance;
     Cell _cellOver;
 
+    public static event Action StartBuilding;
     public static event Action Built;
 
     void Start()
@@ -43,6 +44,7 @@ public class BuildingManager : MonoBehaviour
         if (prefab != null)
         {
             _previewTowerInstance = SpawnTower(_cellOver.transform.position + placementOffset, previewMat);
+            StartBuilding?.Invoke();
         }
     }
 
@@ -72,6 +74,7 @@ public class BuildingManager : MonoBehaviour
                 cell.SetType(CellType.Building);
                 SetMaterial(_previewTowerInstance, defaultMat);
                 _previewTowerInstance = null;
+                _isBuilding = false;
                 Built?.Invoke();
                 break;
             }
