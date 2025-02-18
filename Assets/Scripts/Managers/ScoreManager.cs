@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using ScriptableVariables;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class ScoreManager : MonoBehaviour
     static int s_highScore;
 
     [SerializeField] float timeToIncreaseScore = 1f;
+    [SerializeField] FloatVar scoreVar;
 
     Coroutine _scoreCoroutine;
 
@@ -33,7 +35,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         Score = 0;
         GameStateManager.OnPlaying += StartIncreasingScore;
@@ -49,6 +51,7 @@ public class ScoreManager : MonoBehaviour
     void StartIncreasingScore()
     {
         Score = 0;
+        scoreVar.Value = Score;
         if (_scoreCoroutine != null)
             StopIncreasingScore();
         _scoreCoroutine = StartCoroutine(IncreaseScoreRoutine());
@@ -59,6 +62,7 @@ public class ScoreManager : MonoBehaviour
         while (true)
         {
             Score++;
+            scoreVar.Value = Score;
             yield return new WaitForSeconds(timeToIncreaseScore);
         }
     }

@@ -17,12 +17,12 @@ public class ButtonTower : MonoBehaviour
     {
         _button = GetComponent<Button>();
         _button.onClick.AddListener(OnClick);
-        BuildingManager.Built += OnBuilt;
+        BuildingManager.StopBuilding += OnStopBuilding;
     }
 
-    void OnDestroy() => BuildingManager.Built -= OnBuilt;
+    void OnDestroy() => BuildingManager.StopBuilding -= OnStopBuilding;
 
-    void OnBuilt() => SetSelected(false);
+    void OnStopBuilding() => SetSelected(false);
 
     void OnClick()
     {

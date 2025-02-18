@@ -1,37 +1,67 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(TargetFinder))]
 public class Tower : MonoBehaviour
 {
     [SerializeField] Transform turretBase;
+    [SerializeField] Transform spawnPointL;
+    [SerializeField] Transform spawnPointR;
     [SerializeField] GameObject turretRange;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] float spawnRate;
+    [SerializeField] int layerMask;
+    readonly Collider[] _enemiesInRange = new Collider[8];
 
-    int level;
+    TargetFinder _targetFinder;
 
-    void Awake()
+
+    float _spawnTime;
+    int _level;
+    Transform CurrentTarget => _targetFinder.CurrentTarget;
+
+    void Awake() => _targetFinder = GetComponent<TargetFinder>();
+
+    void Update()
     {
-        BuildingManager.StartBuilding += OnStartBuilding;
-        BuildingManager.Built += OnBuilt;
+        if (CurrentTarget == null)
+        {
+            return;
+        }
+
+        transform.LookAt(CurrentTarget.position);
+        if (_spawnTime > 0)
+        {
+            _spawnTime -= Time.deltaTime;
+        }
+        else
+        {
+            Shoot();
+            _spawnTime = spawnRate;
+        }
     }
 
-    void OnDestroy()
+    void Shoot()
     {
-        BuildingManager.StartBuilding -= OnStartBuilding;
-        BuildingManager.Built -= OnBuilt;
-    }
-    void OnStartBuilding() => SetRangeActive(true);
-    void OnBuilt() => SetRangeActive(false);
+        // if we have a focused enemy, shoot at it
+        if (_targetFinder.CurrentTarget != null)
+        {
+            Vector3 direction = (CurrentTarget.position - transform.position).normalized;
+            GameObject bl = PoolManager.Spawn(bulletPrefab, spawnPointL.position, Quaternion.identity);
+            GameObject br = PoolManager.Spawn(bulletPrefab, spawnPointR.position, Quaternion.identity);
 
+            bl.GetComponent<Bullet>().Initialize(direction);
+            br.GetComponent<Bullet>().Initialize(direction);
+        }
+    }
 
     [ContextMenu("Level Up")]
     void LevelUp()
     {
         if (turretBase == null || turretBase.childCount == 0) return;
-        level = (level + 1) % turretBase.childCount;
+        _level = (_level + 1) % turretBase.childCount;
         for (int i = 0; i < turretBase.childCount; i++)
         {
-            turretBase.GetChild(i).gameObject.SetActive(i == level);
+            turretBase.GetChild(i).gameObject.SetActive(i == _level);
         }
     }
-
-    public void SetRangeActive(bool active) => turretRange.SetActive(active);
 }

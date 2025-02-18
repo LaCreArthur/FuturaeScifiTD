@@ -16,7 +16,7 @@ public class GridInput : MonoBehaviour
     void Update()
     {
         Vector3 mouseWorldPos = GetMouseWorldPosition(_mainCamera);
-        Vector2Int gridPosition = Grid.GetGridPos(Vector3.zero, Grid.CellSize, mouseWorldPos);
+        Vector2Int gridPosition = Grid.GetGridPos(mouseWorldPos);
 
         // Check if mouse is over an existing cell
         if (Grid.Cells.TryGetValue(gridPosition, out Cell cell))
@@ -37,7 +37,6 @@ public class GridInput : MonoBehaviour
                 }
             }
         }
-
     }
 
     void UpdateCellOver(Cell cell)

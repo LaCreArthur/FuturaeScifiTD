@@ -63,7 +63,7 @@ public class PathGenerator : MonoBehaviour
         var excludedPositions = new Queue<Vector2Int>();
 
         Path.Add(currentPos);
-        StartCellFound?.Invoke(Grid.GetWorldPos(Vector3.zero, _cellSize, currentPos.x, currentPos.y, true));
+        StartCellFound?.Invoke(Grid.GetWorldPos(currentPos));
         Grid.Cells[currentPos].SetType(CellType.Road);
 
         while (currentPos.x < _gridSize.x - 1)
@@ -82,7 +82,7 @@ public class PathGenerator : MonoBehaviour
             Grid.Cells[currentPos].SetType(CellType.Road);
         }
         ConvertPathToWorldPositions();
-        EndCellFound?.Invoke(Grid.GetWorldPos(Vector3.zero, _cellSize, currentPos.x, currentPos.y, true));
+        EndCellFound?.Invoke(Grid.GetWorldPos(currentPos));
     }
 
     Vector2Int GetWeightedRandomDirection(List<Vector2Int> validDirections)
@@ -162,7 +162,7 @@ public class PathGenerator : MonoBehaviour
         PathWorldPos.Clear();
         foreach (Vector2Int gridPos in Path)
         {
-            PathWorldPos.Add(Grid.GetWorldPos(Vector3.zero, _cellSize, gridPos.x, gridPos.y, true));
+            PathWorldPos.Add(Grid.GetWorldPos(gridPos));
         }
         PathWorldPosGenerated?.Invoke(PathWorldPos);
     }

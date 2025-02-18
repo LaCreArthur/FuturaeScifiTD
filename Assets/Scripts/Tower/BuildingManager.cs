@@ -4,8 +4,6 @@ using UnityEngine;
 public class BuildingManager : MonoBehaviour
 {
     [SerializeField] Vector3 placementOffset;
-    [SerializeField] Material defaultMat;
-    [SerializeField] Material previewMat;
 
     bool _isBuilding;
     GameObject _activeTowerPrefab;
@@ -13,7 +11,7 @@ public class BuildingManager : MonoBehaviour
     Cell _cellOver;
 
     public static event Action StartBuilding;
-    public static event Action Built;
+    public static event Action StopBuilding;
 
     void Start()
     {
@@ -43,24 +41,10 @@ public class BuildingManager : MonoBehaviour
         _isBuilding = prefab != null;
         if (prefab != null)
         {
-            _previewTowerInstance = SpawnTower(_cellOver.transform.position + placementOffset, previewMat);
+            Vector3 position = _cellOver.transform.position + placementOffset;
+            GameObject go = PoolManager.Spawn(_activeTowerPrefab, position, Quaternion.identity);
+            _previewTowerInstance = go;
             StartBuilding?.Invoke();
-        }
-    }
-
-    GameObject SpawnTower(Vector3 position, Material mat)
-    {
-        GameObject go = PoolManager.Spawn(_activeTowerPrefab, position, Quaternion.identity);
-        SetMaterial(go, mat);
-        return go;
-    }
-
-    static void SetMaterial(GameObject go, Material mat)
-    {
-        Renderer[] renderers = go.GetComponentsInChildren<Renderer>();
-        foreach (Renderer r in renderers)
-        {
-            r.material = mat;
         }
     }
 
@@ -72,10 +56,9 @@ public class BuildingManager : MonoBehaviour
             case CellType.Ground:
             {
                 cell.SetType(CellType.Building);
-                SetMaterial(_previewTowerInstance, defaultMat);
                 _previewTowerInstance = null;
                 _isBuilding = false;
-                Built?.Invoke();
+                StopBuilding?.Invoke();
                 break;
             }
             case CellType.Road:
