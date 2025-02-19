@@ -49,8 +49,8 @@ public class Tower : MonoBehaviour
             GameObject bl = PoolManager.Spawn(bulletPrefab, spawnPointL.position, Quaternion.identity);
             GameObject br = PoolManager.Spawn(bulletPrefab, spawnPointR.position, Quaternion.identity);
 
-            bl.GetComponent<Bullet>().Initialize(direction);
-            br.GetComponent<Bullet>().Initialize(direction);
+            bl.GetComponent<Bullet>().Initialize(direction, _targetFinder.range);
+            br.GetComponent<Bullet>().Initialize(direction, _targetFinder.range);
         }
     }
 

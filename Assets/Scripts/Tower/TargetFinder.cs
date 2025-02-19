@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class TargetFinder : MonoBehaviour
 {
-    [SerializeField] float range = 5f;
+    //todo: better way for range
+    public float range = 5f;
     [SerializeField] LayerMask enemyMask;
 
     readonly Collider[] _results = new Collider[10];
