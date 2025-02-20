@@ -6,6 +6,6 @@ namespace ScriptableVariables
     public class IntVar : SOVar<int>
     {
         protected override void Save() => PlayerPrefs.SetInt(name, value);
-        protected override void Load() => value = PlayerPrefs.GetInt(name, value);
+        protected override void Load() => Value = PlayerPrefs.GetInt(name, value);
     }
 }

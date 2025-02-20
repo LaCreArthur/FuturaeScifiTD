@@ -38,7 +38,7 @@ namespace ScriptableVariables
             if (isSaved)
                 Load();
             else
-                value = initialValue;
+                Value = initialValue;
         }
 
         void OnDisable()
