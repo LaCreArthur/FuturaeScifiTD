@@ -38,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
     void OnStartCellFound(Vector3 pos) => transform.position = pos + Vector3.up;
     void Spawn()
     {
-        GameObject go = Instantiate(prefab, transform.position, Quaternion.identity);
+        GameObject go = PoolManager.Spawn(prefab, transform.position, Quaternion.identity);
         go.GetComponent<EnemyMovement>().SetPath(_pathWorldPos);
     }
 

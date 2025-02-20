@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08da81c652f7354984c8c562f7a315d, type: 3}
+  m_Name: Beam
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 76211126dd4e743b8a40dcbeca2de8a0, type: 3}
+  levels:
+  - towerPrefab: {fileID: 6456933300570290114, guid: 9e14307a7822d2443a5f6cf981f816d1, type: 3}
+    damage: 10
+    range: 4
+    fireRate: 1.5
+    cost: 15
+  - towerPrefab: {fileID: 2283340958546328984, guid: 37954e3cf5763d343b6136e0340803f3, type: 3}
+    damage: 20
+    range: 5
+    fireRate: 1.25
+    cost: 30

@@ -9,6 +9,7 @@ public class TargetFinder : MonoBehaviour
     readonly Collider[] _results = new Collider[10];
 
     public Transform CurrentTarget { get; private set; }
+    public HealthSystem CurrentTargetHealth { get; private set; }
 
     void Update()
     {
@@ -16,7 +17,7 @@ public class TargetFinder : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, CurrentTarget.position) > range)
             {
-                CurrentTarget = null;
+                OnTargetEscapedOrDied();
             }
         }
         else
@@ -42,10 +43,20 @@ public class TargetFinder : MonoBehaviour
             enemyMask
         );
 
-        CurrentTarget = count > 0 ? GetPriorityTarget(_results, count) : null;
+        CurrentTarget = count > 0 ? GetPriorityTarget(_results) : null;
     }
 
-    Transform GetPriorityTarget(Collider[] candidates, int count) =>
+    Transform GetPriorityTarget(Collider[] candidates)
+    {
         // Implement different targeting strategies
-        candidates[0].transform;
+        CurrentTargetHealth = candidates[0].transform.GetComponent<HealthSystem>();
+        CurrentTargetHealth.Died += OnTargetEscapedOrDied;
+        return candidates[0].transform;
+    }
+
+    void OnTargetEscapedOrDied()
+    {
+        CurrentTargetHealth.Died -= OnTargetEscapedOrDied;
+        CurrentTarget = null;
+    }
 }

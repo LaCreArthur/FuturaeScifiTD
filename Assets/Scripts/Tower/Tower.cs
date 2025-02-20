@@ -3,19 +3,17 @@
 [RequireComponent(typeof(TargetFinder))]
 public class Tower : MonoBehaviour
 {
-    [SerializeField] Transform turretBase;
-    [SerializeField] Transform spawnPointL;
-    [SerializeField] Transform spawnPointR;
-    [SerializeField] GameObject turretRange;
+    [SerializeField] TowerSO towerSO;
+    [SerializeField] Transform[] spawnPoints;
+    [SerializeField] Transform headParent;
     [SerializeField] GameObject bulletPrefab;
-    [SerializeField] float spawnRate;
-    [SerializeField] int layerMask;
-    readonly Collider[] _enemiesInRange = new Collider[8];
+    [SerializeField] float fireRate = 1f;
+    [SerializeField] float rotationSpeed = 5f;
 
     TargetFinder _targetFinder;
 
 
-    float _spawnTime;
+    float _fireTime;
     int _level;
     Transform CurrentTarget => _targetFinder.CurrentTarget;
 
@@ -28,15 +26,15 @@ public class Tower : MonoBehaviour
             return;
         }
 
-        transform.LookAt(CurrentTarget.position);
-        if (_spawnTime > 0)
+        LookAtTarget();
+        if (_fireTime > 0)
         {
-            _spawnTime -= Time.deltaTime;
+            _fireTime -= Time.deltaTime;
         }
         else
         {
             Shoot();
-            _spawnTime = spawnRate;
+            _fireTime = fireRate;
         }
     }
 
@@ -45,23 +43,28 @@ public class Tower : MonoBehaviour
         // if we have a focused enemy, shoot at it
         if (_targetFinder.CurrentTarget != null)
         {
-            Vector3 direction = (CurrentTarget.position - transform.position).normalized;
-            GameObject bl = PoolManager.Spawn(bulletPrefab, spawnPointL.position, Quaternion.identity);
-            GameObject br = PoolManager.Spawn(bulletPrefab, spawnPointR.position, Quaternion.identity);
-
-            bl.GetComponent<Bullet>().Initialize(direction, _targetFinder.range);
-            br.GetComponent<Bullet>().Initialize(direction, _targetFinder.range);
+            foreach (Transform point in spawnPoints)
+            {
+                SpawnProjectile(bulletPrefab, point.position);
+            }
         }
     }
 
-    [ContextMenu("Level Up")]
-    void LevelUp()
+    void SpawnProjectile(GameObject prefab, Vector3 position)
     {
-        if (turretBase == null || turretBase.childCount == 0) return;
-        _level = (_level + 1) % turretBase.childCount;
-        for (int i = 0; i < turretBase.childCount; i++)
+        GameObject bullet = PoolManager.Spawn(prefab, position, Quaternion.identity);
+        //todo: actual current level values
+        bullet.GetComponent<Bullet>().Initialize(CurrentTarget, towerSO.levels[0].damage, towerSO.levels[0].range);
+    }
+    void LookAtTarget()
+    {
+        Vector3 targetDirection = CurrentTarget.position - transform.position;
+        targetDirection.y = 0;
+
+        if (targetDirection != Vector3.zero)
         {
-            turretBase.GetChild(i).gameObject.SetActive(i == _level);
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            headParent.rotation = Quaternion.Slerp(headParent.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
 }

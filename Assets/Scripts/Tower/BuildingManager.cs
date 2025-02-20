@@ -42,8 +42,8 @@ public class BuildingManager : MonoBehaviour
         if (prefab != null)
         {
             Vector3 position = _cellOver.transform.position + placementOffset;
-            GameObject go = PoolManager.Spawn(_activeTowerPrefab, position, Quaternion.identity);
-            _previewTowerInstance = go;
+            GameObject towerGo = PoolManager.Spawn(_activeTowerPrefab, position, Quaternion.identity);
+            _previewTowerInstance = towerGo;
             StartBuilding?.Invoke();
         }
     }

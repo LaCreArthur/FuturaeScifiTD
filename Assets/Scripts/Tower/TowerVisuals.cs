@@ -1,19 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerVisuals : MonoBehaviour
 {
     [SerializeField] GameObject rangeDisplay;
-    [SerializeField] Material defaultMat;
     [SerializeField] Material previewMat;
 
-    MeshRenderer[] _renderers;
-
+    public readonly Dictionary<MeshRenderer, Material[]> _rendererMaterial = new Dictionary<MeshRenderer, Material[]>();
     void Awake()
     {
         //todo: check if it is the right tower
         BuildingManager.StartBuilding += OnStartBuilding;
         BuildingManager.StopBuilding += OnStopBuilding;
-        _renderers = GetComponentsInChildren<MeshRenderer>();
+
+        MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
+
+        foreach (MeshRenderer meshRenderer in renderers)
+        {
+            _rendererMaterial[meshRenderer] = meshRenderer.sharedMaterials;
+        }
     }
 
     void OnDestroy()
@@ -27,14 +32,14 @@ public class TowerVisuals : MonoBehaviour
     void TogglePreviewDisplay(bool show)
     {
         rangeDisplay.SetActive(show);
-        SetMaterial(show ? previewMat : defaultMat);
+        SetMaterial(show);
     }
 
-    void SetMaterial(Material mat)
+    void SetMaterial(bool show)
     {
-        foreach (MeshRenderer r in _renderers)
+        foreach (MeshRenderer r in _rendererMaterial.Keys)
         {
-            r.material = mat;
+            r.sharedMaterials = show ? new[] { previewMat } : _rendererMaterial[r];
         }
     }
 }
