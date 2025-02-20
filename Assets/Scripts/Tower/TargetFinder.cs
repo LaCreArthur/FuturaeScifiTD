@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class TargetFinder : MonoBehaviour, ITargetFinder
 {
-    //todo: better way for range
-    public float range = 5f;
     [SerializeField] LayerMask enemyMask;
 
     readonly Collider[] _results = new Collider[16];
@@ -13,7 +11,7 @@ public class TargetFinder : MonoBehaviour, ITargetFinder
     {
         if (CurrentTarget != null)
         {
-            if (Vector3.Distance(transform.position, CurrentTarget.position) > range)
+            if (Vector3.Distance(transform.position, CurrentTarget.position) > Range)
             {
                 OnTargetEscapedOrDied();
             }
@@ -29,16 +27,17 @@ public class TargetFinder : MonoBehaviour, ITargetFinder
     {
         // Draw a semi-transparent sphere when object is selected
         Gizmos.color = new Color(1, 1, 0, 0.3f);
-        Gizmos.DrawSphere(transform.position, range);
+        Gizmos.DrawSphere(transform.position, Range);
     }
 
     public Transform CurrentTarget { get; private set; }
+    public float Range { get; set; }
 
     public void FindTarget()
     {
         int count = Physics.OverlapSphereNonAlloc(
             transform.position,
-            range,
+            Range,
             _results,
             enemyMask
         );
