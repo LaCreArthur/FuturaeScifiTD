@@ -1,64 +1,49 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(TargetFinder))]
 public class Tower : MonoBehaviour
 {
     [SerializeField] TowerSO towerSO;
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] Transform headParent;
     [SerializeField] GameObject bulletPrefab;
-    [SerializeField] float fireRate = 1f;
     [SerializeField] float rotationSpeed = 5f;
 
     TargetFinder _targetFinder;
+    float _fireRate;
+    float _timeUntilNextShot;
 
-
-    float _fireTime;
-    int _level;
-    Transform CurrentTarget => _targetFinder.CurrentTarget;
-
-    void Awake() => _targetFinder = GetComponent<TargetFinder>();
+    void Awake()
+    {
+        _fireRate = towerSO.levels[0].fireRate;
+        _targetFinder = GetComponent<TargetFinder>();
+    }
 
     void Update()
     {
-        if (CurrentTarget == null)
-        {
-            return;
-        }
-
+        if (_targetFinder.CurrentTarget == null) return;
         LookAtTarget();
-        if (_fireTime > 0)
-        {
-            _fireTime -= Time.deltaTime;
-        }
-        else
+
+        if (_timeUntilNextShot <= 0)
         {
             Shoot();
-            _fireTime = fireRate;
+            _timeUntilNextShot = _fireRate;
         }
+        _timeUntilNextShot -= Time.deltaTime;
     }
 
     void Shoot()
     {
-        // if we have a focused enemy, shoot at it
-        if (_targetFinder.CurrentTarget != null)
+        foreach (Transform point in spawnPoints)
         {
-            foreach (Transform point in spawnPoints)
-            {
-                SpawnProjectile(bulletPrefab, point.position);
-            }
+            GameObject bullet = PoolManager.Spawn(bulletPrefab, point.position, Quaternion.identity);
+            if (bullet.TryGetComponent(out IBullet bulletStrategy))
+                bulletStrategy.Initialize(transform, _targetFinder.CurrentTarget, towerSO);
         }
-    }
-
-    void SpawnProjectile(GameObject prefab, Vector3 position)
-    {
-        GameObject bullet = PoolManager.Spawn(prefab, position, Quaternion.identity);
-        bullet.GetComponent<IBullet>().Initialize(transform, CurrentTarget, towerSO);
     }
 
     void LookAtTarget()
     {
-        Vector3 targetDirection = CurrentTarget.position - transform.position;
+        Vector3 targetDirection = _targetFinder.CurrentTarget.position - transform.position;
         targetDirection.y = 0;
 
         if (targetDirection != Vector3.zero)

@@ -2,24 +2,24 @@
 
 public class ArtilleryBullet : MonoBehaviour, IBullet
 {
-    [SerializeField] float moveSpeed;
-    Transform _target;
+    const float MOVE_SPEED = 10f;
+    int _damage;
     float _distanceTraveled;
     float _range;
-    int _damage;
+    Transform _target;
 
-    void OnEnable() => _distanceTraveled = 0;
     void Update()
     {
         Vector3 direction = (_target.position - transform.position).normalized;
         transform.LookAt(direction);
-        transform.position += direction * (moveSpeed * Time.deltaTime);
-        _distanceTraveled += moveSpeed * Time.deltaTime;
+        transform.position += direction * (MOVE_SPEED * Time.deltaTime);
+        _distanceTraveled += MOVE_SPEED * Time.deltaTime;
+
         if (_distanceTraveled >= _range)
         {
             PoolManager.Despawn(gameObject);
         }
-        if ((transform.position - _target.position).sqrMagnitude < 0.1f)
+        else if ((transform.position - _target.position).sqrMagnitude < 0.1f)
         {
             if (_target.TryGetComponent(out EnemyHealthSystem healthSystem))
             {
@@ -28,11 +28,13 @@ public class ArtilleryBullet : MonoBehaviour, IBullet
             }
         }
     }
+
     public void Initialize(Transform tower, Transform target, TowerSO towerSO)
     {
         _target = target;
         //todo: actual current level values
         _damage = towerSO.levels[0].damage;
         _range = towerSO.levels[0].range;
+        _distanceTraveled = 0;
     }
 }
