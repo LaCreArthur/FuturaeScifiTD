@@ -7,7 +7,6 @@ public class PathGenerator : MonoBehaviour
 {
     const int MAX_EXCLUDED_HISTORY = 16;
 
-    [SerializeField] float visualizationDelay = 0.1f;
     [SerializeField] GameObject playerTriggerPrefab;
 
     readonly Vector2Int[] _directions =

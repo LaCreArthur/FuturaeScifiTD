@@ -1,14 +1,12 @@
 using UnityEngine;
 
-public class TargetFinder : MonoBehaviour
+public class TargetFinder : MonoBehaviour, ITargetFinder
 {
     //todo: better way for range
     public float range = 5f;
     [SerializeField] LayerMask enemyMask;
 
-    readonly Collider[] _results = new Collider[10];
-
-    public Transform CurrentTarget { get; private set; }
+    readonly Collider[] _results = new Collider[16];
     public HealthSystem CurrentTargetHealth { get; private set; }
 
     void Update()
@@ -34,6 +32,8 @@ public class TargetFinder : MonoBehaviour
         Gizmos.DrawSphere(transform.position, range);
     }
 
+    public Transform CurrentTarget { get; private set; }
+
     public void FindTarget()
     {
         int count = Physics.OverlapSphereNonAlloc(
@@ -43,15 +43,35 @@ public class TargetFinder : MonoBehaviour
             enemyMask
         );
 
-        CurrentTarget = count > 0 ? GetPriorityTarget(_results) : null;
+        if (count <= 0)
+            CurrentTarget = null;
+        else
+        {
+            CurrentTarget = GetClosestTarget(_results);
+            CurrentTargetHealth = CurrentTarget.GetComponent<HealthSystem>();
+            CurrentTargetHealth.Died += OnTargetEscapedOrDied;
+        }
     }
 
-    Transform GetPriorityTarget(Collider[] candidates)
+    Transform GetClosestTarget(Collider[] candidates)
     {
-        // Implement different targeting strategies
-        CurrentTargetHealth = candidates[0].transform.GetComponent<HealthSystem>();
-        CurrentTargetHealth.Died += OnTargetEscapedOrDied;
-        return candidates[0].transform;
+        Transform closestTarget = null;
+        float closestDistance = Mathf.Infinity;
+
+        for (int i = 0; i < candidates.Length; i++)
+        {
+            if (candidates[i] == null) continue;
+
+            float distance = Vector3.Distance(transform.position, candidates[i].transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestTarget = candidates[i].transform;
+            }
+        }
+
+        return closestTarget;
+
     }
 
     void OnTargetEscapedOrDied()

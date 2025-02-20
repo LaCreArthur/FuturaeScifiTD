@@ -8,14 +8,14 @@ public class Tower : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float rotationSpeed = 5f;
 
-    TargetFinder _targetFinder;
+    ITargetFinder _targetFinder;
     float _fireRate;
     float _timeUntilNextShot;
 
     void Awake()
     {
         _fireRate = towerSO.levels[0].fireRate;
-        _targetFinder = GetComponent<TargetFinder>();
+        _targetFinder = GetComponent<ITargetFinder>();
     }
 
     void Update()
