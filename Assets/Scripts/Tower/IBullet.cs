@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IBullet
 {
-    void Initialize(Transform tower, Transform target, TowerSO towerSO);
+    void Initialize(Tower tower, Transform target, TowerSO towerSO);
 }

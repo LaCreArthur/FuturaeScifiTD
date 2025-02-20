@@ -4,6 +4,8 @@ using UnityEngine;
 public class BuildingManager : MonoBehaviour
 {
     [SerializeField] Vector3 placementOffset;
+    [SerializeField] TowerInteractionUI interactionUI;
+    [SerializeField] UIClickPanelManager panelManager;
 
     bool _isBuilding;
     TowerSO _activeTowerSO;
@@ -51,26 +53,38 @@ public class BuildingManager : MonoBehaviour
 
     void OnCellClicked(Cell cell)
     {
-        if (!_isBuilding) return;
-        switch (cell.type)
+        if (_isBuilding)
         {
-            case CellType.Ground:
-            {
-                _previewTowerInstance = null;
-                _isBuilding = false;
-                if (!GoldManager.SubtractGold(_activeTowerSO.levels[0].cost))
-                {
-                    CancelBuilding?.Invoke();
-                    return;
-                }
-                cell.SetType(CellType.Building);
-                SuccessBuilding?.Invoke();
-                break;
-            }
-            case CellType.Road:
-            case CellType.Building:
-            default:
-                break;
+            HandleBuilding(cell);
+        }
+        else if (cell.type == CellType.Building)
+        {
+            HandleTowerSelection(cell);
+        }
+    }
+
+    void HandleBuilding(Cell cell)
+    {
+        if (cell.type != CellType.Ground) return;
+        _previewTowerInstance.transform.SetParent(cell.transform);
+        _previewTowerInstance = null;
+        _isBuilding = false;
+        if (!GoldManager.SubtractGold(_activeTowerSO.levels[0].cost))
+        {
+            CancelBuilding?.Invoke();
+            return;
+        }
+        cell.SetType(CellType.Building);
+        SuccessBuilding?.Invoke();
+    }
+
+    void HandleTowerSelection(Cell cell)
+    {
+        var tower = cell.GetComponentInChildren<Tower>();
+        if (tower != null)
+        {
+            interactionUI.Show(tower);
+            panelManager.ShowPanelAtCell(cell.position);
         }
     }
 }

@@ -29,12 +29,12 @@ public class ArtilleryBullet : MonoBehaviour, IBullet
         }
     }
 
-    public void Initialize(Transform tower, Transform target, TowerSO towerSO)
+    public void Initialize(Tower tower, Transform target, TowerSO towerSO)
     {
         _target = target;
         //todo: actual current level values
-        _damage = towerSO.levels[0].damage;
-        _range = towerSO.levels[0].range;
+        _damage = towerSO.levels[tower.CurrentLevelIndex].damage;
+        _range = towerSO.levels[tower.CurrentLevelIndex].range;
         _distanceTraveled = 0;
     }
 }

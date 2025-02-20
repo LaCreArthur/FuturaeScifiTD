@@ -10,9 +10,7 @@ public class UIClickPanelManager : MonoBehaviour
     {
         _canvasRectTransform = mainCanvas.transform as RectTransform;
         panelToShow.gameObject.SetActive(false);
-        GridInput.CellClicked += OnCellClicked;
     }
-    void OnCellClicked(Cell cell) => ShowPanelAtCell(cell.position);
 
     public void ShowPanelAtCell(Vector2Int cellPosition)
     {

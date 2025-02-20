@@ -41,7 +41,7 @@ public class Tower : MonoBehaviour
         {
             GameObject bullet = PoolManager.Spawn(bulletPrefab, point.position, Quaternion.identity);
             if (bullet.TryGetComponent(out IBullet bulletStrategy))
-                bulletStrategy.Initialize(transform, _targetFinder.CurrentTarget, towerSO);
+                bulletStrategy.Initialize(this, _targetFinder.CurrentTarget, towerSO);
         }
     }
 

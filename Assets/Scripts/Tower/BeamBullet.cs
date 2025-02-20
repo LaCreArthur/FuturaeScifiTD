@@ -4,7 +4,7 @@ using UnityEngine;
 public class BeamBullet : MonoBehaviour, IBullet
 {
     LineRenderer _lineRenderer;
-    Transform _tower;
+    Transform _towerTransform;
     Transform _target;
     int _damage;
     float _fireRate;
@@ -23,7 +23,7 @@ public class BeamBullet : MonoBehaviour, IBullet
         if (_fireRate > 0)
         {
             _fireRate -= Time.deltaTime;
-            _lineRenderer.SetPosition(0, _tower.position);
+            _lineRenderer.SetPosition(0, _towerTransform.position);
             _lineRenderer.SetPosition(1, _target.position);
         }
         else
@@ -34,14 +34,14 @@ public class BeamBullet : MonoBehaviour, IBullet
         }
     }
 
-    public void Initialize(Transform tower, Transform target, TowerSO towerSO)
+    public void Initialize(Tower tower, Transform target, TowerSO towerSO)
     {
-        _tower = tower;
+        _towerTransform = tower.transform;
         _target = target;
-        _damage = towerSO.levels[0].damage;
-        _fireRate = towerSO.levels[0].fireRate - 0.2f;
+        _damage = towerSO.levels[tower.CurrentLevelIndex].damage;
+        _fireRate = towerSO.levels[tower.CurrentLevelIndex].fireRate - 0.2f;
 
-        _lineRenderer.SetPosition(0, _tower.position);
+        _lineRenderer.SetPosition(0, _towerTransform.position);
         _lineRenderer.SetPosition(1, _target.position);
         _enemyHealthSystem = _target.GetComponent<EnemyHealthSystem>();
     }
