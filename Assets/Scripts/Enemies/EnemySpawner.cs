@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
         PathGenerator.StartCellFound += OnStartCellFound;
         PathGenerator.PathWorldPosGenerated += OnPathWorldPosGenerated;
         GameStateManager.OnPlaying += Enable;
+        GameStateManager.OnGameOver += Disable;
         enabled = false;
     }
 
@@ -32,9 +33,11 @@ public class EnemySpawner : MonoBehaviour
         PathGenerator.StartCellFound -= OnStartCellFound;
         PathGenerator.PathWorldPosGenerated -= OnPathWorldPosGenerated;
         GameStateManager.OnPlaying -= Enable;
+        GameStateManager.OnGameOver -= Disable;
     }
 
     void Enable() => enabled = true;
+    void Disable() => enabled = false;
     void OnStartCellFound(Vector3 pos) => transform.position = pos + Vector3.up;
     void Spawn()
     {

@@ -8,6 +8,7 @@ public class PathGenerator : MonoBehaviour
     const int MAX_EXCLUDED_HISTORY = 16;
 
     [SerializeField] float visualizationDelay = 0.1f;
+    [SerializeField] GameObject playerTriggerPrefab;
 
     readonly Vector2Int[] _directions =
     {
@@ -82,7 +83,9 @@ public class PathGenerator : MonoBehaviour
             Grid.Cells[currentPos].SetType(CellType.Road);
         }
         ConvertPathToWorldPositions();
-        EndCellFound?.Invoke(Grid.GetWorldPos(currentPos));
+        Vector3 endCellWorldPos = Grid.GetWorldPos(currentPos);
+        PoolManager.Spawn(playerTriggerPrefab, endCellWorldPos, Quaternion.identity);
+        EndCellFound?.Invoke(endCellWorldPos);
     }
 
     Vector2Int GetWeightedRandomDirection(List<Vector2Int> validDirections)

@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2318532845201138596}
   - component: {fileID: 9189415326570783430}
-  - component: {fileID: 577817567303275099}
   - component: {fileID: -131234096477968948}
+  - component: {fileID: 8034367078415879949}
+  - component: {fileID: 577817567303275099}
   m_Layer: 0
   m_Name: Player Health Trigger
   m_TagString: Untagged
@@ -53,24 +54,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &577817567303275099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3723428054160670755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e772c6a7c63045728cf9c2859dc03427, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 100
-  currentHp: 0
-  playerHp: {fileID: 11400000, guid: 565440efa2627634e9850a88172e077d, type: 2}
-  playerMaxHp: {fileID: 11400000, guid: 0968729cb3a297a42b14cbb9af791b33, type: 2}
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &-131234096477968948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -98,3 +83,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8034367078415879949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723428054160670755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5bd20b63ffe41808c803235b282883d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 0}
+--- !u!114 &577817567303275099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723428054160670755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e772c6a7c63045728cf9c2859dc03427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 100
+  currentHp: 0
+  playerHp: {fileID: 11400000, guid: 565440efa2627634e9850a88172e077d, type: 2}
+  playerMaxHp: {fileID: 11400000, guid: 0968729cb3a297a42b14cbb9af791b33, type: 2}

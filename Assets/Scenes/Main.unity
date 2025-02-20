@@ -295,6 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualizationDelay: 0
+  playerTriggerPrefab: {fileID: 3723428054160670755, guid: 57ee44ce9c5bc724b907e8a10fcf6a28, type: 3}
 --- !u!114 &163548754
 MonoBehaviour:
   m_ObjectHideFlags: 0
