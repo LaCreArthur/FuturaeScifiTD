@@ -1,18 +1,16 @@
-using System;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
     public CellType type;
     public Vector2Int position;
-    
+
     public Material groundMaterial;
     public Material roadMaterial;
     public Material buildingMaterial;
     public Material validMaterial;
     public Material invalidMaterial;
-    
+
     MeshRenderer _meshRenderer;
     Material _lastMaterial;
 
@@ -23,7 +21,7 @@ public class Cell : MonoBehaviour
         gameObject.name = $"Cell {position}";
         SetType(type);
     }
-    
+
     public void SetType(CellType type)
     {
         this.type = type;
@@ -45,11 +43,8 @@ public class Cell : MonoBehaviour
         _lastMaterial = _meshRenderer.material;
         _meshRenderer.material = type == CellType.Ground ? validMaterial : _meshRenderer.material = invalidMaterial;
     }
-    
-    public void ResetMaterial()
-    {
-        _meshRenderer.material = _lastMaterial;
-    }
+
+    public void ResetMaterial() => _meshRenderer.material = _lastMaterial;
 }
 
 public enum CellType

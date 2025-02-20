@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 ///     This move behavior moves in the direction of the player but will not stop when it reaches the player.
 /// </summary>
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour, IPoolable
 {
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float rotationSpeed = 5f;
@@ -14,11 +14,12 @@ public class EnemyMovement : MonoBehaviour
     List<Vector3> _pathWorldPos = new List<Vector3>();
     int _currentTargetIndex;
 
-    //todo: could be set only once, not when respawned in the same level
-    public void SetPath(List<Vector3> pathWorldPos)
+    public void OnSpawn() => StartFollowPath();
+
+    void StartFollowPath()
     {
-        _pathWorldPos = pathWorldPos;
         _currentTargetIndex = 0;
+        _pathWorldPos = PathGenerator.PathWorldPositions;
         StartCoroutine(FollowPathRoutine());
     }
 

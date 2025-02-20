@@ -2,13 +2,6 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    void Start()
-    {
-        GameStateManager.OnPlaying += ResumeTime;
-        ButtonResume.OnResumeButtonClicked += ResumeTime;
-        ButtonPause.OnPauseButtonClicked += PauseTime;
-        LevelUpChoiceUI.UpgradeChosen += ResumeTime;
-    }
 
     void OnDestroy()
     {
@@ -16,6 +9,13 @@ public class TimeManager : MonoBehaviour
         ButtonResume.OnResumeButtonClicked -= ResumeTime;
         ButtonPause.OnPauseButtonClicked -= PauseTime;
         LevelUpChoiceUI.UpgradeChosen -= ResumeTime;
+    }
+    void Start()
+    {
+        GameStateManager.OnPlaying += ResumeTime;
+        ButtonResume.OnResumeButtonClicked += ResumeTime;
+        ButtonPause.OnPauseButtonClicked += PauseTime;
+        LevelUpChoiceUI.UpgradeChosen += ResumeTime;
     }
 
     static void PauseTime() => Time.timeScale = 0;

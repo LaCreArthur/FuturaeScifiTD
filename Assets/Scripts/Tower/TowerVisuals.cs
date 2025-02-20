@@ -11,7 +11,8 @@ public class TowerVisuals : MonoBehaviour
     {
         //todo: check if it is the right tower
         BuildingManager.StartBuilding += OnStartBuilding;
-        BuildingManager.StopBuilding += OnStopBuilding;
+        //todo: should be refactored because we could cancel the building
+        BuildingManager.SuccessBuilding += OnSuccessBuilding;
 
         MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
 
@@ -24,11 +25,11 @@ public class TowerVisuals : MonoBehaviour
     void OnDestroy()
     {
         BuildingManager.StartBuilding -= OnStartBuilding;
-        BuildingManager.StopBuilding -= OnStopBuilding;
+        BuildingManager.SuccessBuilding -= OnSuccessBuilding;
     }
 
     void OnStartBuilding() => TogglePreviewDisplay(true);
-    void OnStopBuilding() => TogglePreviewDisplay(false);
+    void OnSuccessBuilding() => TogglePreviewDisplay(false);
     void TogglePreviewDisplay(bool show)
     {
         rangeDisplay.SetActive(show);

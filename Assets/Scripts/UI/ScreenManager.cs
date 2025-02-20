@@ -14,17 +14,6 @@ public class ScreenManager : MonoBehaviour
         leaderboardScreen.SetActive(false);
     }
 
-    void Start()
-    {
-        GameStateManager.OnPlaying += ShowGameScreen;
-        GameStateManager.OnGameOver += ShowEndScreen;
-        GameStateManager.OnHome += ShowHomeScreen;
-        ButtonPause.OnPauseButtonClicked += ShowPauseScreen;
-        ButtonResume.OnResumeButtonClicked += ShowGameScreen;
-        LevelUpChoiceUI.UpgradeChosen += ShowGameScreen;
-        GameStateManager.OnLeaderboard += ShowLeaderboard;
-    }
-
     void OnDestroy()
     {
         GameStateManager.OnPlaying -= ShowGameScreen;
@@ -34,6 +23,17 @@ public class ScreenManager : MonoBehaviour
         ButtonResume.OnResumeButtonClicked -= ShowGameScreen;
         LevelUpChoiceUI.UpgradeChosen -= ShowGameScreen;
         GameStateManager.OnLeaderboard -= ShowLeaderboard;
+    }
+
+    void Start()
+    {
+        GameStateManager.OnPlaying += ShowGameScreen;
+        GameStateManager.OnGameOver += ShowEndScreen;
+        GameStateManager.OnHome += ShowHomeScreen;
+        ButtonPause.OnPauseButtonClicked += ShowPauseScreen;
+        ButtonResume.OnResumeButtonClicked += ShowGameScreen;
+        LevelUpChoiceUI.UpgradeChosen += ShowGameScreen;
+        GameStateManager.OnLeaderboard += ShowLeaderboard;
     }
 
     void ShowGameScreen()

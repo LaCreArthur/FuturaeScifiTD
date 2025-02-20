@@ -11,13 +11,13 @@ public class IntVarTMPText : MonoBehaviour
 
     void Awake() => _tmp = GetComponent<TMP_Text>();
 
+    void OnDestroy() => var.OnChanged -= SetValue;
+
     void Start()
     {
         var.OnChanged += SetValue;
         SetValue(var.Value);
     }
-
-    void OnDestroy() => var.OnChanged -= SetValue;
 
     void SetValue(int value) => _tmp.text = $"{var.Value.ToString()}";
 }

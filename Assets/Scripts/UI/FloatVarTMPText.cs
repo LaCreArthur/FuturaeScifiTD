@@ -12,13 +12,13 @@ public class FloatVarTMPText : MonoBehaviour
 
     void Awake() => _tmp = GetComponent<TMP_Text>();
 
+    void OnDestroy() => var.OnChanged -= SetValue;
+
     void Start()
     {
         var.OnChanged += SetValue;
         SetValue(var.Value);
     }
-
-    void OnDestroy() => var.OnChanged -= SetValue;
 
     void SetValue(float value) => _tmp.text = $"{var.Value.ToString($"N{decimals}")}";
 }

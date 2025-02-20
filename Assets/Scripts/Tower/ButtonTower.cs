@@ -16,25 +16,29 @@ public class ButtonTower : MonoBehaviour
 
     bool _selected;
 
-    public static event Action<GameObject> TowerClicked;
+    public static event Action<TowerSO> TowerClicked;
     void Awake()
     {
         _button = GetComponent<Button>();
         _button.onClick.AddListener(OnClick);
-        BuildingManager.StopBuilding += OnStopBuilding;
+        BuildingManager.SuccessBuilding += OnSuccessBuilding;
         iconImage.sprite = towerSO.icon;
         nameTmp.text = towerSO.name;
         priceTmp.text = towerSO.levels[0].cost.ToString();
     }
 
-    void OnDestroy() => BuildingManager.StopBuilding -= OnStopBuilding;
+    void OnDestroy() => BuildingManager.SuccessBuilding -= OnSuccessBuilding;
 
-    void OnStopBuilding() => SetSelected(false);
+    void OnSuccessBuilding() => SetSelected(false);
 
     void OnClick()
     {
+        if (!GoldManager.CanAfford(towerSO.levels[0].cost))
+        {
+            return;
+        }
         SetSelected(!_selected);
-        TowerClicked?.Invoke(_selected ? towerSO?.prefab : null);
+        TowerClicked?.Invoke(_selected ? towerSO : null);
     }
 
     void SetSelected(bool value)

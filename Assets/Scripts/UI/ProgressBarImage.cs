@@ -17,18 +17,18 @@ public class ProgressBarImage : MonoBehaviour
 
     void Awake() => _image = GetComponent<Image>();
 
+    void OnDestroy()
+    {
+        currentValue.OnChanged -= SetValue;
+        maxValue.OnChanged -= SetMaxValue;
+    }
+
     void Start()
     {
         currentValue.OnChanged += SetValue;
         maxValue.OnChanged += SetMaxValue;
         SetMaxValue(maxValue.Value);
         SetValue(currentValue.Value);
-    }
-
-    void OnDestroy()
-    {
-        currentValue.OnChanged -= SetValue;
-        maxValue.OnChanged -= SetMaxValue;
     }
 
     void UpdateBar()

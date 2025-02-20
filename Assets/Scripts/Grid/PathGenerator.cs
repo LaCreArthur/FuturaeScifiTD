@@ -26,14 +26,12 @@ public class PathGenerator : MonoBehaviour
         { Vector2Int.left, 0.5f },
     };
 
-    float _cellSize;
     Vector2Int _gridSize;
-    public static event Action<Vector3> StartCellFound;
-    public static event Action<Vector3> EndCellFound;
-    public static event Action<List<Vector3>> PathWorldPosGenerated;
+
+    public static event Action PathGenerated;
 
     public List<Vector2Int> Path { get; } = new List<Vector2Int>();
-    public List<Vector3> PathWorldPos { get; } = new List<Vector3>();
+    public static List<Vector3> PathWorldPositions { get; } = new List<Vector3>();
 
     void Awake() => Grid.GridInitialized += GeneratePath;
 
@@ -41,7 +39,6 @@ public class PathGenerator : MonoBehaviour
 
     void GeneratePath()
     {
-        _cellSize = Grid.CellSize;
         _gridSize = Grid.GridSize;
         GeneratePathRoutine();
     }
@@ -64,7 +61,6 @@ public class PathGenerator : MonoBehaviour
         var excludedPositions = new Queue<Vector2Int>();
 
         Path.Add(currentPos);
-        StartCellFound?.Invoke(Grid.GetWorldPos(currentPos));
         Grid.Cells[currentPos].SetType(CellType.Road);
 
         while (currentPos.x < _gridSize.x - 1)
@@ -82,10 +78,10 @@ public class PathGenerator : MonoBehaviour
             Path.Add(currentPos);
             Grid.Cells[currentPos].SetType(CellType.Road);
         }
+
+        PoolManager.Spawn(playerTriggerPrefab, Grid.GetWorldPos(currentPos), Quaternion.identity);
         ConvertPathToWorldPositions();
-        Vector3 endCellWorldPos = Grid.GetWorldPos(currentPos);
-        PoolManager.Spawn(playerTriggerPrefab, endCellWorldPos, Quaternion.identity);
-        EndCellFound?.Invoke(endCellWorldPos);
+        PathGenerated?.Invoke();
     }
 
     Vector2Int GetWeightedRandomDirection(List<Vector2Int> validDirections)
@@ -162,11 +158,10 @@ public class PathGenerator : MonoBehaviour
 
     void ConvertPathToWorldPositions()
     {
-        PathWorldPos.Clear();
+        PathWorldPositions.Clear();
         foreach (Vector2Int gridPos in Path)
         {
-            PathWorldPos.Add(Grid.GetWorldPos(gridPos));
+            PathWorldPositions.Add(Grid.GetWorldPos(gridPos));
         }
-        PathWorldPosGenerated?.Invoke(PathWorldPos);
     }
 }

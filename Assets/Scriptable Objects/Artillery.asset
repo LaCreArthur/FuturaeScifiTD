@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Artillery
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: b38ec02ee0c204c1a8186948b91a60f0, type: 3}
-  prefab: {fileID: 4995177550049527533, guid: 5aae644c70e457c4983e42deabc5df5a, type: 3}
+  prefab: {fileID: 1332793198912065323, guid: 54a5ed24eb564a949937d8a16d75ccf5, type: 3}
   levels:
   - damage: 5
     range: 3

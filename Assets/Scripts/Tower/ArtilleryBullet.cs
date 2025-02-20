@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class ArtilleryBullet : MonoBehaviour, IBullet
 {
     [SerializeField] float moveSpeed;
     Transform _target;
@@ -28,10 +28,11 @@ public class Bullet : MonoBehaviour
             }
         }
     }
-    public void Initialize(Transform target, int damage, float range)
+    public void Initialize(Transform tower, Transform target, TowerSO towerSO)
     {
         _target = target;
-        _damage = damage;
-        _range = range;
+        //todo: actual current level values
+        _damage = towerSO.levels[0].damage;
+        _range = towerSO.levels[0].range;
     }
 }

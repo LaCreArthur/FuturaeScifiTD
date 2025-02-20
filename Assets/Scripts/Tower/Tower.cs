@@ -53,9 +53,9 @@ public class Tower : MonoBehaviour
     void SpawnProjectile(GameObject prefab, Vector3 position)
     {
         GameObject bullet = PoolManager.Spawn(prefab, position, Quaternion.identity);
-        //todo: actual current level values
-        bullet.GetComponent<Bullet>().Initialize(CurrentTarget, towerSO.levels[0].damage, towerSO.levels[0].range);
+        bullet.GetComponent<IBullet>().Initialize(transform, CurrentTarget, towerSO);
     }
+
     void LookAtTarget()
     {
         Vector3 targetDirection = CurrentTarget.position - transform.position;

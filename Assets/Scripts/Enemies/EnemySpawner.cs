@@ -1,49 +1,29 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] GameObject prefab;
-    [SerializeField] float spawnRate;
+    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] float spawnRate = 1f;
 
-    float _nextSpawnTime;
-    List<Vector3> _pathWorldPos = new List<Vector3>();
+    float _timeUntilNextSpawn;
 
-    void Awake()
-    {
-        PathGenerator.StartCellFound += OnStartCellFound;
-        PathGenerator.PathWorldPosGenerated += OnPathWorldPosGenerated;
-        GameStateManager.OnPlaying += Enable;
-        GameStateManager.OnGameOver += Disable;
-        enabled = false;
-    }
+    void Awake() => PathGenerator.PathGenerated += OnPathGenerated;
+    void OnDestroy() => PathGenerator.PathGenerated -= OnPathGenerated;
 
     void Update()
     {
-        _nextSpawnTime -= Time.deltaTime;
-        if (_nextSpawnTime <= 0)
+        if (GameStateManager.CurrentState != GameState.Playing) return;
+        _timeUntilNextSpawn -= Time.deltaTime;
+        if (_timeUntilNextSpawn <= 0)
         {
-            Spawn();
-            _nextSpawnTime = spawnRate;
+            PoolManager.Spawn(enemyPrefab, transform.position, Quaternion.identity);
+            _timeUntilNextSpawn = spawnRate;
         }
     }
 
-    void OnDestroy()
+    void OnPathGenerated()
     {
-        PathGenerator.StartCellFound -= OnStartCellFound;
-        PathGenerator.PathWorldPosGenerated -= OnPathWorldPosGenerated;
-        GameStateManager.OnPlaying -= Enable;
-        GameStateManager.OnGameOver -= Disable;
+        Vector3 firstPosition = PathGenerator.PathWorldPositions[0];
+        transform.position = firstPosition + Vector3.up;
     }
-
-    void Enable() => enabled = true;
-    void Disable() => enabled = false;
-    void OnStartCellFound(Vector3 pos) => transform.position = pos + Vector3.up;
-    void Spawn()
-    {
-        GameObject go = PoolManager.Spawn(prefab, transform.position, Quaternion.identity);
-        go.GetComponent<EnemyMovement>().SetPath(_pathWorldPos);
-    }
-
-    void OnPathWorldPosGenerated(List<Vector3> pathWorldPos) => _pathWorldPos = pathWorldPos;
 }

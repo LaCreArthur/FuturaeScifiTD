@@ -19,15 +19,14 @@ public class GoldManager : MonoBehaviour
 
     public static void AddGold(int amount) => CurrentGold += amount;
 
-    public static void SubtractGold(int amount)
+    public static bool SubtractGold(int amount)
     {
         if (CanAfford(amount))
         {
             CurrentGold -= amount;
+            return true;
         }
-        else
-        {
-            Debug.Log("Not enough gold!");
-        }
+        Debug.Log("Not enough gold!");
+        return false;
     }
 }
