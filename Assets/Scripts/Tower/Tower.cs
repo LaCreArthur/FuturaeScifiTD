@@ -5,6 +5,8 @@ public class Tower : MonoBehaviour
     [SerializeField] TowerSO towerSO;
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] Transform headParent;
+    [SerializeField] GameObject[] bases;
+    [SerializeField] GameObject[] heads;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float rotationSpeed = 5f;
 
@@ -62,7 +64,18 @@ public class Tower : MonoBehaviour
         if (CurrentLevelIndex < MaxLevel)
         {
             CurrentLevelIndex++;
+            UpgradeModel(heads);
+            UpgradeModel(bases);
             ApplyLevelData();
+        }
+    }
+
+    void UpgradeModel(GameObject[] models)
+    {
+        if (models.Length - 1 >= CurrentLevelIndex && CurrentLevelIndex > 0)
+        {
+            models[CurrentLevelIndex - 1].SetActive(false);
+            models[CurrentLevelIndex].SetActive(true);
         }
     }
 

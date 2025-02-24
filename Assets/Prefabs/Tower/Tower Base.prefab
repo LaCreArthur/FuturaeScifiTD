@@ -183,7 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc728d341cc40c1a780d3c3b6123c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 5
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
@@ -216,8 +215,11 @@ MonoBehaviour:
   towerSO: {fileID: 11400000, guid: ea93c8afba127b04488699edf993f02a, type: 2}
   spawnPoints: []
   headParent: {fileID: 626515357371740154}
+  bases:
+  - {fileID: 1126838120465900821}
+  - {fileID: 3469149834158352568}
+  heads: []
   bulletPrefab: {fileID: 5022794838755065643, guid: 77c593dbc49bb4043930f2981832baee, type: 3}
-  fireRate: 1
   rotationSpeed: 20
 --- !u!1 &9219215727987870997
 GameObject:
@@ -312,6 +314,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a951b3ee1c08624a8e18c6db106926d, type: 3}
+--- !u!1 &3469149834158352568 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3949012516493775551, guid: 7a951b3ee1c08624a8e18c6db106926d, type: 3}
+  m_PrefabInstance: {fileID: 498017825331608071}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4282700905023631874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4433342322991597573, guid: 7a951b3ee1c08624a8e18c6db106926d, type: 3}
@@ -378,5 +385,10 @@ PrefabInstance:
 --- !u!4 &353679769932234671 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2552311567915592038, guid: 4df9d360f2abdcd40a604c220b4ef651, type: 3}
+  m_PrefabInstance: {fileID: 2847159218047801033}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1126838120465900821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2891435711100810204, guid: 4df9d360f2abdcd40a604c220b4ef651, type: 3}
   m_PrefabInstance: {fileID: 2847159218047801033}
   m_PrefabAsset: {fileID: 0}

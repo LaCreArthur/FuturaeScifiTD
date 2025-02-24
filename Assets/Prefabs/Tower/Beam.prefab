@@ -93,6 +93,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37954e3cf5763d343b6136e0340803f3, type: 3}
+--- !u!1 &160079976912900093 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2283340958546328984, guid: 37954e3cf5763d343b6136e0340803f3, type: 3}
+  m_PrefabInstance: {fileID: 2128154667388711525}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &681001530102093127 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1512046387283404578, guid: 37954e3cf5763d343b6136e0340803f3, type: 3}
@@ -161,6 +166,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5967394906364292472, guid: 9e14307a7822d2443a5f6cf981f816d1, type: 3}
   m_PrefabInstance: {fileID: 5043459214620784477}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2046417429445574815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6456933300570290114, guid: 9e14307a7822d2443a5f6cf981f816d1, type: 3}
+  m_PrefabInstance: {fileID: 5043459214620784477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7438421256076656375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -177,6 +187,18 @@ PrefabInstance:
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 5022794838755065643, guid: 9a2bca8ee7660454090a4127606e8548, type: 3}
+    - target: {fileID: 1801691295165280029, guid: 7bf4683a55ccb8c408f8a456733114a9, type: 3}
+      propertyPath: heads.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801691295165280029, guid: 7bf4683a55ccb8c408f8a456733114a9, type: 3}
+      propertyPath: 'heads.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2046417429445574815}
+    - target: {fileID: 1801691295165280029, guid: 7bf4683a55ccb8c408f8a456733114a9, type: 3}
+      propertyPath: 'heads.Array.data[1]'
+      value: 
+      objectReference: {fileID: 160079976912900093}
     - target: {fileID: 1801691295165280029, guid: 7bf4683a55ccb8c408f8a456733114a9, type: 3}
       propertyPath: spawnPoints.Array.size
       value: 1
