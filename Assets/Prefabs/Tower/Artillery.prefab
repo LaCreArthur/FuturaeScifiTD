@@ -206,6 +206,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3469149834158352568, guid: 7bf4683a55ccb8c408f8a456733114a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8450332772691358172, guid: 7bf4683a55ccb8c408f8a456733114a9, type: 3}
       propertyPath: m_Name
       value: Artillery

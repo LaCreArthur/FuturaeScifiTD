@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeDisplay: {fileID: 2027181189785455097}
-  previewMat: {fileID: 2100000, guid: a0889cd32c1a48f4ca4eae10233778ff, type: 2}
+  previewMat: {fileID: 2100000, guid: 36ccb8ab491ba314880da88a9801295a, type: 2}
 --- !u!114 &1801691295165280029
 MonoBehaviour:
   m_ObjectHideFlags: 0
