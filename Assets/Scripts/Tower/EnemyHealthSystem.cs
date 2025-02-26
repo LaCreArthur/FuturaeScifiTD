@@ -1,3 +1,5 @@
+using DG.Tweening;
+
 public class EnemyHealthSystem : HealthSystem, IPoolable
 {
     public void OnSpawn() => CurrentHp = MaxHp;
@@ -7,7 +9,7 @@ public class EnemyHealthSystem : HealthSystem, IPoolable
         base.TakeDamage(amount);
         if (CurrentHp <= 0)
         {
-            PoolManager.Despawn(gameObject);
+            DOVirtual.DelayedCall(2f, () => PoolManager.Despawn(gameObject));
         }
     }
 }
