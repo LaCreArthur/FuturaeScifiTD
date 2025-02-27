@@ -74,11 +74,6 @@ public class RagdollController : MonoBehaviour, IPoolable
         foreach (Rigidbody rb in rigidbodies)
         {
             rb.isKinematic = !enabled;
-            if (!enabled)
-            {
-                rb.linearVelocity = Vector3.zero; // Reset velocity when disabling ragdoll
-                rb.angularVelocity = Vector3.zero;
-            }
         }
     }
 }
