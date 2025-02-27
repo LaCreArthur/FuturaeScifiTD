@@ -29,6 +29,7 @@ public class BeamBullet : MonoBehaviour, IBullet
         else
         {
             Debug.Log("enemy takes damages", this);
+            _enemyHealthSystem.LastBullet = gameObject;
             _enemyHealthSystem.TakeDamage(_damage);
             PoolManager.Despawn(gameObject);
         }

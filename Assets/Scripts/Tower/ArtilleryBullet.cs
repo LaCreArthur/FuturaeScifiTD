@@ -23,6 +23,7 @@ public class ArtilleryBullet : MonoBehaviour, IBullet
         {
             if (_target.TryGetComponent(out EnemyHealthSystem healthSystem))
             {
+                healthSystem.LastBullet = gameObject;
                 healthSystem.TakeDamage(_damage);
                 PoolManager.Despawn(gameObject);
             }

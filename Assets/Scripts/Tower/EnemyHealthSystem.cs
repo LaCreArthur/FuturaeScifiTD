@@ -1,7 +1,10 @@
 using DG.Tweening;
+using UnityEngine;
 
 public class EnemyHealthSystem : HealthSystem, IPoolable
 {
+    public GameObject LastBullet { get; set; } // Add this
+
     public void OnSpawn() => CurrentHp = MaxHp;
 
     public override void TakeDamage(int amount)

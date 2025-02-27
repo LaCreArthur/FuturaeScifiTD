@@ -1,14 +1,20 @@
 ﻿using UnityEngine;
 
-public class RagdollController : MonoBehaviour
+public class RagdollController : MonoBehaviour, IPoolable
 {
-
     [SerializeField] Rigidbody impactTargetBone;
     [SerializeField] float impactForceMagnitude = 500f;
     Animator animator;
     Rigidbody[] rigidbodies;
     HealthSystem healthSystem;
     CapsuleCollider _capsuleCollider;
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+        rigidbodies = GetComponentsInChildren<Rigidbody>();
+        healthSystem = GetComponent<HealthSystem>();
+        _capsuleCollider = GetComponent<CapsuleCollider>();
+    }
 
     void OnDestroy()
     {
@@ -20,12 +26,6 @@ public class RagdollController : MonoBehaviour
 
     void Start()
     {
-        // Cache components
-        animator = GetComponent<Animator>();
-        rigidbodies = GetComponentsInChildren<Rigidbody>();
-        healthSystem = GetComponent<HealthSystem>();
-        _capsuleCollider = GetComponent<CapsuleCollider>();
-
         // Subscribe to the Died event
         if (healthSystem != null)
         {
@@ -35,30 +35,24 @@ public class RagdollController : MonoBehaviour
         {
             Debug.LogError("HealthSystem component not found on " + gameObject.name);
         }
-
-        // Start with ragdoll disabled (kinematic)
-        SetRagdollEnabled(false);
     }
 
-    // For testing (optional)
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R)) // Manual trigger with 'R'
-        {
-            OnCharacterDied();
-        }
-    }
+    public void OnSpawn() => SetRagdollEnabled(false);
 
     void OnCharacterDied()
     {
         // Trigger ragdoll and apply impact
         EnableRagdoll();
 
-        if (impactTargetBone != null)
+        if (impactTargetBone != null && healthSystem is EnemyHealthSystem enemyHealth)
         {
-            // Example: Apply force upward and slightly backward
-            Vector3 impactDirection = (Vector3.up + Vector3.back).normalized;
-            impactTargetBone.AddForce(impactDirection * impactForceMagnitude, ForceMode.Impulse);
+            Vector3 forceDirection = Vector3.up; // Default
+            if (enemyHealth.LastBullet != null)
+            {
+                Vector3 bulletDirection = (transform.position - enemyHealth.LastBullet.transform.position).normalized;
+                forceDirection = bulletDirection;
+            }
+            impactTargetBone.AddForce(forceDirection * impactForceMagnitude, ForceMode.Impulse);
         }
     }
 
