@@ -1074,9 +1074,9 @@ GameObject:
   - component: {fileID: 8066705625732894110}
   - component: {fileID: 2404702201276340124}
   - component: {fileID: 5816077753603991451}
-  - component: {fileID: 7856093428631307989}
   - component: {fileID: 8202768114797794685}
   - component: {fileID: 3976238333131663532}
+  - component: {fileID: 6191383127813940570}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
@@ -1123,7 +1123,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2730622661939213123}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b7c75e5204a0a564d921e477214f77dc, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 850240c19b0c7024e99e9d24899bf3e8, type: 2}
   m_Controller: {fileID: 9100000, guid: d5eefa1c84d13d44b85dfe8499a4dcc4, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1148,7 +1148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec262bada37846fb90d0eba79fd53eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.5
   rotationSpeed: 10
   arrivalThreshold: 0.1
 --- !u!114 &3567467906385405688
@@ -1177,7 +1176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc03a8139cf2451c9955a6bf9337e640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldAmount: 10
 --- !u!114 &2404702201276340124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,7 +1188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84dcd374108948de82ec0039b02eef55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
 --- !u!114 &5816077753603991451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1204,21 +1201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blinks: 1
-  blinkMaterial: {fileID: 2100000, guid: ecce1a1895e37524282423faddfd60c9, type: 2}
---- !u!114 &7856093428631307989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2730622661939213123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 736f4b3108164dcfa790182bb0481002, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 20
-  currentHp: 0
+  blinkMaterial: {fileID: 2100000, guid: 0b96f234bd4fd4d4185b6609d973967f, type: 2}
 --- !u!114 &8202768114797794685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1256,6 +1239,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.00021770597, y: 0.87484807, z: -0.0013711322}
+--- !u!114 &6191383127813940570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730622661939213123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 146ec81a20b74af791d457396715e42c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySO: {fileID: 0}
 --- !u!1 &2963786784190582908
 GameObject:
   m_ObjectHideFlags: 0

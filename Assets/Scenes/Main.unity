@@ -1483,8 +1483,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f435b2fe7d2a428c85855b71fb63daa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 2730622661939213123, guid: af294d3d904705544b01e5b42ed6c36a, type: 3}
-  spawnRate: 0.5
+  enemyTypes:
+  - {fileID: 11400000, guid: d536c8fb7938f7142bae41a2032b642f, type: 2}
+  - {fileID: 11400000, guid: 345ea54d82e002c4fac427a32e4840ca, type: 2}
+  - {fileID: 11400000, guid: 36d5e02c01f940e4e94adf2569c75fe9, type: 2}
+  waveSize: 5
+  spawnRate: 1
 --- !u!4 &1182928885
 Transform:
   m_ObjectHideFlags: 0
@@ -2100,6 +2104,63 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8698141224265510035, guid: 9753ebbd742dec4419646783f76889bd, type: 3}
   m_PrefabInstance: {fileID: 8904908247317064355}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1891950683
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2976668708858600295, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976668708858600295, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976668708858600295, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976668708858600295, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976668708858600295, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976668708858600295, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976668708858600295, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976668708858600295, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976668708858600295, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976668708858600295, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6099370417172054838, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+      propertyPath: m_Name
+      value: Enemy Sci-Fi Hipster
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
 --- !u!114 &2044090079 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3377883498235331852, guid: b442f5da36374c74493d855d289d66f6, type: 3}
@@ -6795,3 +6856,4 @@ SceneRoots:
   - {fileID: 7466737841205544657}
   - {fileID: 895479589}
   - {fileID: 1743831752}
+  - {fileID: 1891950683}

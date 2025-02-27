@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3aed41af5b104faeb664b67b01b09552, type: 3}
-  m_Name: 1 Alien
+  m_Name: 3 Sci-Fi Hipster
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5176138978838669098, guid: cacc679ef5f7ac34eb2245b7087c03a3, type: 3}
-  maxHealth: 20
+  prefab: {fileID: 6099370417172054838, guid: ecad072a23b777842ba0c5752ea26d30, type: 3}
+  maxHealth: 35
   moveSpeed: 1
-  goldReward: 10
-  damage: 10
+  goldReward: 20
+  damage: 20
