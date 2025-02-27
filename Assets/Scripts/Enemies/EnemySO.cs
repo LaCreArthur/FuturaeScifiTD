@@ -7,5 +7,5 @@ public class EnemySO : ScriptableObject
     public float maxHealth;
     public float moveSpeed;
     public int goldReward;
-    public int damageToPlayer;
+    public int damage;
 }

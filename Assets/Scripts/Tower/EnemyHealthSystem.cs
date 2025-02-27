@@ -16,4 +16,5 @@ public class EnemyHealthSystem : HealthSystem, IPoolable
             DOVirtual.DelayedCall(2f, () => PoolManager.Despawn(gameObject));
         }
     }
+    public void SetMaxHealth(float maxHealth) => MaxHp = maxHealth;
 }

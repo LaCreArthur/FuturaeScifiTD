@@ -3,8 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyHealthSystem))]
 public class EnemyGoldSystem : MonoBehaviour
 {
-    [SerializeField] int goldAmount;
     EnemyHealthSystem _healthSystem;
+    int _goldReward;
 
     void Awake()
     {
@@ -13,5 +13,6 @@ public class EnemyGoldSystem : MonoBehaviour
     }
 
     void OnDestroy() => _healthSystem.Died -= OnDeath;
-    void OnDeath() => GoldManager.AddGold(goldAmount);
+    void OnDeath() => GoldManager.AddGold(_goldReward);
+    public void SetGoldReward(int goldReward) => _goldReward = goldReward;
 }
